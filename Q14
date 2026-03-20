@@ -1,0 +1,90 @@
+package Q14pack;
+
+import java.util.Scanner;
+
+public class Library {
+    String bookNames[];
+    String authorNames[];
+    int totalBooks;
+
+    Library(int totalBooks) {
+        this.totalBooks = totalBooks;
+        bookNames = new String[totalBooks];
+        authorNames = new String[totalBooks];
+    }
+
+    public void acceptBooks() {
+        Scanner sc = new Scanner(System.in);
+
+        for (int i = 0; i < totalBooks; i++) {
+            System.out.print("Enter Book Name: ");
+            bookNames[i] = sc.nextLine();
+
+            System.out.print("Enter Author Name: ");
+            authorNames[i] = sc.nextLine();
+        }
+    }
+
+    public void displayBooks() {
+        for (int i = 0; i < totalBooks; i++) {
+            System.out.println(bookNames[i] + " - " + authorNames[i]);
+        }
+    }
+
+    public void searchBook(String bookName) {
+        boolean found = false;
+
+        for (int i = 0; i < totalBooks; i++) {
+            if (bookNames[i].equalsIgnoreCase(bookName)) {
+                System.out.println("Book Found: " + bookNames[i] + " by " + authorNames[i]);
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("Book not available");
+        }
+    }
+
+    public void countBooksByAuthor(String authorName) {
+        int count = 0;
+
+        for (int i = 0; i < totalBooks; i++) {
+            if (authorNames[i].equalsIgnoreCase(authorName)) {
+                count++;
+            }
+        }
+
+        System.out.println("Books by " + authorName + ": " + count);
+    }
+}
+----------------------------------------------------------------------------
+import java.util.Scanner;
+import Q14pack.Library;
+
+public class Q14 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.print("Enter total number of books: ");
+        int n = sc.nextInt();
+        sc.nextLine();
+
+        Library l = new Library(n);
+
+        l.acceptBooks();
+
+        System.out.println("\nLibrary Books:");
+        l.displayBooks();
+
+        System.out.print("\nEnter book name to search: ");
+        String bname = sc.nextLine();
+        l.searchBook(bname);
+
+        System.out.print("\nEnter author name to count books: ");
+        String aname = sc.nextLine();
+        l.countBooksByAuthor(aname);
+
+        sc.close();
+    }
+}
